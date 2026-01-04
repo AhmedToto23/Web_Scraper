@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Advanced Web Scraper</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>🌐 Advanced Web Scraper</h1>
+
+    <form method="post">
+        <input type="text" name="url" placeholder="Enter website URL" value="{{ url }}">
+        <div class="buttons">
+            <button name="scraper" value="requests">Scrape with Requests</button>
+            <button name="scraper" value="selenium">Scrape with Selenium</button>
+        </div>
+    </form>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, msg in messages %}
+            <div class="{{ category }}">{{ msg }}</div>
+        {% endfor %}
+    {% endwith %}
+
+    {% if headlines %}
+        <h3>📰 Scraped Headlines ({{ scraper_type }})</h3>
+        <ul>
+            {% for h in headlines[:20] %}
+                <li>{{ h }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+</body>
+</html>
